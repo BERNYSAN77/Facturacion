@@ -20,6 +20,18 @@ public class SistemaVenta {
         clientes.add(new Cliente("3","maria","Machachi","098888"));
     }
 
+    public List<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    public List<Factura> getFacturas() {
+        return facturas;
+    }
+
     public void cargarProductos(){
         productos.add(new Producto("1","cartuchera",50,5.4));
         productos.add(new Producto("2","cartulina",200,0.15));
@@ -52,6 +64,14 @@ public class SistemaVenta {
     public Producto buscarProducto(String codigo){
         for(int i=0;i< productos.size();i++){
             if(productos.get(i).getCodigo().equals(codigo)){
+                return productos.get(i);
+            }
+        }
+        return null;
+    }
+    public Producto buscarProductoNombre(String nombre){
+        for(int i=0;i< productos.size();i++){
+            if(productos.get(i).getCodigo().equals(nombre)){
                 return productos.get(i);
             }
         }
@@ -94,6 +114,14 @@ public class SistemaVenta {
     public String mostrarProductos(){
         StringBuilder sb = new StringBuilder();
         for(Producto c: productos){
+            sb.append(c);
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+    public String mostrarColeccion(ArrayList lista){
+        StringBuilder sb = new StringBuilder();
+        for(Object c: lista){
             sb.append(c);
             sb.append("\n");
         }

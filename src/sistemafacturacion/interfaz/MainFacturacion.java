@@ -5,6 +5,8 @@ import sistemafacturacion.negocio.Factura;
 import sistemafacturacion.negocio.Producto;
 import sistemafacturacion.util.SistemaVenta;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MainFacturacion {
@@ -19,10 +21,10 @@ public class MainFacturacion {
             op = Integer.parseInt(sc.nextLine());
             switch (op){
                 case 3:{
-                    System.out.println(sv.mostrarClientes());
+                    System.out.println(sv.mostrarColeccion((ArrayList) sv.getClientes()));
                 }break;
                 case 4:{
-                    System.out.println(sv.mostrarProductos());
+                    System.out.println(sv.mostrarColeccion((ArrayList) sv.getProductos()));
                 }break;
                 case 6:{
                     String cedula;
@@ -53,13 +55,26 @@ public class MainFacturacion {
                             continuar = Integer.parseInt(sc.nextLine());
                         }
                         f.calcularTotal();
+                        System.out.println(f);
                     }else{
                         System.out.println("Cliente no registrado");
                     }
-                }
+                }break;
+                case 7:{
+                    String cedula;
+                    System.out.print("Ingrese la cedula del cliente: ");
+                    cedula = sc.nextLine();
+                    List<Factura> lista = sv.buscarFacturaCliente(cedula);
+                    if(lista.isEmpty()){
+                        System.out.println("No hay facturas del cliente");
+                    }else{
+                        System.out.println(sv.mostrarColeccion((ArrayList) lista));
+
+                    }
+                }break;
             }
 
-        }while(op != 7);
+        }while(op != 8);
 
     }
     public static void menu(){

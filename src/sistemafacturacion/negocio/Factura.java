@@ -18,13 +18,27 @@ public class Factura {
     private double iva;
 
     public Factura(Cliente cliente){
-        numFactura = ++totalFacturas;
+       // numFactura = ++totalFacturas;
+        setNumFactura(++totalFacturas);
         this.cliente = cliente;
         total = 0;
         fecha = LocalDate.now();
         productos = new Producto[MAX];
         numProductos = 0;
     }
+
+    public int getNumProductos() {
+        return numProductos;
+    }
+
+    public double getSubTotal() {
+        return subTotal;
+    }
+
+    public double getIva() {
+        return iva;
+    }
+
 
     public static int getTotalFacturas() {
         return totalFacturas;
@@ -50,17 +64,11 @@ public class Factura {
         return productos;
     }
 
-    public void setNumFactura(int numFactura) {
+    private void setNumFactura(int numFactura) {
         this.numFactura = numFactura;
     }
 
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
 
     public void agregarProducto(Producto producto){
         if(numProductos < MAX )
@@ -70,6 +78,13 @@ public class Factura {
     public Producto buscarProducto(String nombre){
         for(int i = 0; i < numProductos; i++){
             if(productos[i].getNombre().equals(nombre))
+                return productos[i];
+        }
+        return null;
+    }
+    public Producto buscarProductoCodigo(String codigo){
+        for(int i = 0; i < numProductos; i++){
+            if(productos[i].getCodigo().equals(codigo))
                 return productos[i];
         }
         return null;
@@ -88,5 +103,20 @@ public class Factura {
         calcularSubTotal();
         calcularIva();
         total = subTotal + iva;
+    }
+    @Override
+    public String toString(){
+       String sb = "";
+       sb = "Factura: "+numFactura+"\nFecha: "+fecha.toString()+"\nCedula: "+cliente.getCedula()+
+               "\nNombre: "+cliente.getNombre()+"\n";
+       sb += "Codigo\tNombre\tCantidad\tPrecioU\tPrecioT\n";
+       for(int i = 0; i < numProductos;i++){
+           sb += productos[i].getCodigo()+"\t"+productos[i].getNombre()+"\t"+
+                   productos[i].getStock()+"\t"+productos[i].getPrecio()+"\t"+
+                   productos[i].calcularVenta(productos[i].getStock())+"\n";
+        }
+
+       sb += "Subtotal: "+subTotal+"\nIVA: "+iva+"\nTotal: "+total;
+        return sb;
     }
 }
