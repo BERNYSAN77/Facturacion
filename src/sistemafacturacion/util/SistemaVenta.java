@@ -20,6 +20,12 @@ public class SistemaVenta {
         clientes.add(new Cliente("3","maria","Machachi","098888"));
     }
 
+    public void cargarProductos(){
+        productos.add(new Producto("1","cartuchera",50,5.4));
+        productos.add(new Producto("2","cartulina",200,0.15));
+        productos.add(new Producto("3","esfero",50,1.85));
+    }
+
     public List<Cliente> getClientes() {
         return clientes;
     }
@@ -32,11 +38,7 @@ public class SistemaVenta {
         return facturas;
     }
 
-    public void cargarProductos(){
-        productos.add(new Producto("1","cartuchera",50,5.4));
-        productos.add(new Producto("2","cartulina",200,0.15));
-        productos.add(new Producto("3","esfero",50,1.85));
-    }
+
 
     public void agregarCliente(String cedula, String nombre, String direccion, String telefono){
         Cliente c = buscarCliente(cedula);
@@ -71,7 +73,7 @@ public class SistemaVenta {
     }
     public Producto buscarProductoNombre(String nombre){
         for(int i=0;i< productos.size();i++){
-            if(productos.get(i).getCodigo().equals(nombre)){
+            if(productos.get(i).getCodigo().equalsIgnoreCase(nombre)){
                 return productos.get(i);
             }
         }
@@ -103,7 +105,7 @@ public class SistemaVenta {
         f.agregarProducto(new Producto(codigo,nombre,stock,precio));
     }*/
 
-    public String mostrarClientes(){
+ /*  public String mostrarClientes(){
         String listaCliente = "";
         for(Cliente c: clientes){
             listaCliente += c.toString();
@@ -118,7 +120,7 @@ public class SistemaVenta {
             sb.append("\n");
         }
         return sb.toString();
-    }
+    }*/
     public String mostrarColeccion(ArrayList lista){
         StringBuilder sb = new StringBuilder();
         for(Object c: lista){
